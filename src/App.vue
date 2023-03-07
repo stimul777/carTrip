@@ -1,21 +1,22 @@
 <template>
-  <header>
-    <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
+  <section class="content">
+    <section class="content-wrapper">
+      <header>
+        <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
+        <div class="wrapper">
+          <Header />
 
-    <div class="wrapper">
-      <Header />
+          <nav>
+            <RouterLink to="/">Калькулятор расстояния</RouterLink>
+            <RouterLink to="/expense">Калькулятор расхода</RouterLink>
+          </nav>
+        </div>
+      </header>
+      <YandexMap class="map-wrapper" />
+    </section>
 
-      <nav>
-        <RouterLink to="/">Калькулятор расстояния</RouterLink>
-        <RouterLink to="/about">Калькулятор расхода</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <div class="map-wrapper">
-    <YandexMap />
-  </div>
-  <RouterView />
+    <RouterView />
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -25,9 +26,19 @@ import YandexMap from './components/YandexMap.vue'
 </script>
 
 <style scoped>
+.content {
+  display: flex;
+  /* width: 100%; */
+  border: 1px solid green;
+}
+
+.content-wrapper {
+  border: 1px solid red;
+}
+
 .map-wrapper {
-  width: 100%;
-  height: 100%;
+  width: 600px;
+  height: 400px;
   border: 1px solid red;
 }
 
@@ -66,7 +77,7 @@ nav a:first-of-type {
   border: 0;
 }
 
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
   header {
     display: flex;
     place-items: center;
@@ -91,5 +102,5 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
-}
+} */
 </style>

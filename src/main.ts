@@ -17,7 +17,6 @@ const vuetify = createVuetify({
   directives
 })
 
-// app.use(ymapPlugin, settings)
 app.use(createPinia())
 app.use(router)
 app.use(vuetify)

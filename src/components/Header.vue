@@ -1,6 +1,9 @@
 <template>
   <div class="greetings">
-    <h1 class="green">Calc</h1>
+    <div class="header">
+      <h1 class="green">Calc</h1>
+      <p>Ru</p>
+    </div>
     <h3>
       Калькулятор
       <!-- <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
@@ -16,6 +19,14 @@
 </script>
 
 <style scoped>
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* width: 100%; */
+  border: 1px solid red;
+}
+
 h1 {
   font-weight: 500;
   font-size: 2.6rem;
@@ -31,10 +42,10 @@ h3 {
   text-align: center;
 }
 
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
   .greetings h1,
   .greetings h3 {
     text-align: left;
   }
-}
+} */
 </style>

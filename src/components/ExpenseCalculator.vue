@@ -1,7 +1,5 @@
 <template>
-  <div class="distance-calculator-container">
-    <v-text-field label="Main input" hide-details="auto" color="'red'"></v-text-field>
-  </div>
+  <v-progress-circular indeterminate class="progress-circular" size="80"></v-progress-circular>
 </template>
 
 <script lang="ts">
@@ -23,7 +21,7 @@ export default {
 </script>
 
 <style scoped>
-.distance-calculator-container {
+/* .distance-calculator-container {
   width: 300px;
-}
+} */
 </style>
