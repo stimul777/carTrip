@@ -1,6 +1,6 @@
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
 
     <div class="wrapper">
       <Header />
@@ -9,26 +9,28 @@
         <RouterLink to="/">Калькулятор расстояния</RouterLink>
         <RouterLink to="/about">Калькулятор расхода</RouterLink>
       </nav>
-
-      <MapView />
     </div>
   </header>
 
+  <div class="map-wrapper">
+    <YandexMap />
+  </div>
   <RouterView />
 </template>
 
 <script setup lang="ts">
-// import { createApp } from 'vue'
-// import App from './App.vue'
-// Vuetify
-// import 'vuetify/styles'
-
 import { RouterLink, RouterView } from 'vue-router'
 import Header from './components/Header.vue'
-import MapView from './views/MapView.vue'
+import YandexMap from './components/YandexMap.vue'
 </script>
 
 <style scoped>
+.map-wrapper {
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+}
+
 header {
   line-height: 1.5;
   max-height: 100vh;
