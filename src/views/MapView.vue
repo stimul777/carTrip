@@ -22,7 +22,7 @@ export default {
     //   version: '2.1'
     // }
 
-    onMounted(async () => {
+    const getMaps = async () => {
       await ymaps
         .load(`https://api-maps.yandex.ru/2.1/?apikey=${_key}&lang=ru_RU`)
         .then((maps: any) => {
@@ -32,10 +32,13 @@ export default {
           })
         })
         .catch((error: any) => console.log('Failed to load Yandex Maps', error))
+    }
+
+    onMounted(async () => {
+      getMaps()
     })
 
     return {
-      // settings,
       coords
     }
   }
