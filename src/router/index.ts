@@ -6,7 +6,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'distanceCalculator',
-      component: () => import('@/components/DistanceCalculator.vue')
+      component: () => import('@/view/DistanceCalculator.vue')
     },
     {
       path: '/expense',

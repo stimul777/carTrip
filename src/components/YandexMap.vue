@@ -44,6 +44,11 @@ export default defineComponent({
             zoom: 6
           })
           setMap(maps, map)
+          //Поисковые подсказки
+          // maps.suggest('мыт').then(function (items) {
+          //   console.log('items', items)
+          //   // items - массив поисковых подсказок.
+          // })
         })
         .catch((error: any) => console.log('Failed to load Yandex Maps', error))
     }
@@ -57,7 +62,7 @@ export default defineComponent({
           mapStateAutoApply: true
         })
         .then(function (route: any) {
-          console.log(Math.round(route.getLength() / 1000)) //расстояние в м
+          //console.log(Math.round(route.getLength() / 1000)) //расстояние в м
 
           route.getPaths().options.set({
             // балун показывает только информацию о времени в пути с трафиком
