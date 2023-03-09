@@ -7,12 +7,15 @@
       size="80"
     ></v-progress-circular>
     <div v-show="!isLoad" id="map-container" style="width: 600px; height: 400px"></div>
+    <UIButton />
   </section>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, Ref } from 'vue'
 import ymaps from 'ymaps'
+import UIButton from '@/components/kit/UIButton.vue'
+import useYampStore from '@/stores/yamp.store'
 
 export default defineComponent({
   name: 'YandexMap',
@@ -29,41 +32,38 @@ export default defineComponent({
 
   setup(props) {
     const isLoad: Ref<boolean> = ref(true)
-    const _key = import.meta.env.VITE_API_KEY_MAP
+    const store = useYampStore()
+
+    let map = null as any
 
     //
-    // Получение яндекс карт
+    // Карты: Старт.
     //
     const getMap = async () => {
-      await ymaps
-        .load(`https://api-maps.yandex.ru/2.1/?apikey=${_key}&load=package.full&lang=ru_RU`)
-        .then((maps: any) => {
-          isLoad.value = false
-          const map = new maps.Map('map-container', {
-            center: [55.755864, 37.617698],
-            zoom: 6
-          })
-          setMap(maps, map)
-          //Поисковые подсказки
-          // maps.suggest('мыт').then(function (items) {
-          //   console.log('items', items)
-          //   // items - массив поисковых подсказок.
-          // })
-        })
-        .catch((error: any) => console.log('Failed to load Yandex Maps', error))
+      map = new store.maps.Map('map-container', {
+        center: [55.755864, 37.617698],
+        zoom: 6
+      })
+      setMap()
+      //Поисковые подсказки
+      // maps.suggest('мыт').then(function (items) {
+      //   console.log('items', items)
+      //   // items - массив поисковых подсказок.
+      // })
+      // })
+      // .catch((error: any) => console.log('Failed to load Yandex Maps', error))
     }
 
     //
     // Установка точек на карту
     //
-    const setMap = (maps, map) => {
-      maps
+    const setMap = () => {
+      store.maps
         .route([props.pointA, props.pointB], {
           mapStateAutoApply: true
         })
         .then(function (route: any) {
           //console.log(Math.round(route.getLength() / 1000)) //расстояние в м
-
           route.getPaths().options.set({
             // балун показывает только информацию о времени в пути с трафиком
             // balloonContentLayout: ymaps.templateLayoutFactory.createClass(
@@ -79,7 +79,9 @@ export default defineComponent({
     }
 
     onMounted(async () => {
+      await store.load()
       getMap()
+      isLoad.value = false
     })
 
     return { isLoad }
