@@ -14,7 +14,9 @@ export const useYampStore = defineStore({
     // yamps: null,
     maps: null as any, //загружаемый класс карт
 
-    distanceBetweenPoints: 0 //расстояние между точками в км.
+    distanceBetweenPoints: 0, //расстояние между точками в км.
+    pointA: 'Москва',
+    pointB: 'Владикавказ'
   }),
 
   getters: {

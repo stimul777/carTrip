@@ -1,8 +1,17 @@
 <template>
-  <v-autocomplete :label="label" :items="items" :loading="true" class="autocomplete" />
+  <v-autocomplete
+    v-model="value"
+    v-model:search="search"
+    :label="label"
+    :items="items"
+    :loading="true"
+    class="autocomplete"
+  />
 </template>
 
 <script lang="ts">
+import { ref, Ref, watch } from 'vue'
+
 export default {
   name: 'UIAutocomplete',
   props: {
@@ -16,8 +25,19 @@ export default {
     }
   },
 
-  setup(props) {
-    return {}
+  emits: ['updateValue', 'search'],
+
+  setup(props, { emit }) {
+    const value: Ref<string> = ref('')
+    const search: Ref<string> = ref('')
+
+    watch(value, () => {
+      emit('updateValue', search.value)
+    })
+
+    //ленивую загрузку
+    watch(search, () => emit('search', search.value))
+    return { value, search }
   }
 }
 </script>

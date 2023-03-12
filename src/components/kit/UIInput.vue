@@ -1,23 +1,38 @@
 <template>
-  <v-text-field :label="label" class="input"></v-text-field>
+  <v-text-field v-model="value" :label="label" :hint="hint" class="input"></v-text-field>
 </template>
 
 <script lang="ts">
+import { computed } from 'vue'
+
 export default {
   name: 'UIAutocomplete',
+
+  // model: {
+  //   prop: 'modelValue'
+  //   // event: 'update:modelValue',
+  // },
+
   props: {
     label: {
       type: String,
       default: 'Значение'
     },
-    items: {
-      type: Array,
-      default: () => ['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']
+    hint: {
+      type: String,
+      default: 'Значение'
+    },
+    modelValue: {
+      type: Number,
+      default: 0
     }
   },
 
   setup(props) {
-    return {}
+    const value = computed(() => {
+      return props.modelValue
+    })
+    return { value }
   }
 }
 </script>

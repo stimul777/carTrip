@@ -12,27 +12,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, Ref } from 'vue'
-import ymaps from 'ymaps'
+import { defineComponent, onMounted, ref, Ref, watch } from 'vue'
+// import ymaps from 'ymaps'
 import UIButton from '@/components/kit/UIButton.vue'
 import useYampStore from '@/stores/yamp.store'
 
 export default defineComponent({
   name: 'YandexMap',
-  props: {
-    pointA: {
-      type: String,
-      default: 'Москва'
-    },
-    pointB: {
-      type: String,
-      default: 'Санкт-Петербург'
-    }
-  },
+  // props: {
+  //   pointA: {
+  //     type: String,
+  //     default: 'Владикавказ'
+  //   },
+  //   pointB: {
+  //     type: String,
+  //     default: 'Санкт-Петербург'
+  //   }
+  // },
 
   setup(props) {
     const isLoad: Ref<boolean> = ref(true)
     const store = useYampStore()
+
+    // const pointA = ref(store.pointA)
+    // const pointB = ref(store.pointB)
 
     let map = null as any
 
@@ -45,13 +48,6 @@ export default defineComponent({
         zoom: 6
       })
       setMap()
-      //Поисковые подсказки
-      // maps.suggest('мыт').then(function (items) {
-      //   console.log('items', items)
-      //   // items - массив поисковых подсказок.
-      // })
-      // })
-      // .catch((error: any) => console.log('Failed to load Yandex Maps', error))
     }
 
     //
@@ -59,11 +55,12 @@ export default defineComponent({
     //
     const setMap = () => {
       store.maps
-        .route([props.pointA, props.pointB], {
+        .route([store.pointA, store.pointB], {
           mapStateAutoApply: true
         })
         .then(function (route: any) {
-          //console.log(Math.round(route.getLength() / 1000)) //расстояние в м
+          store.distanceBetweenPoints = Math.ceil(route.getLength() / 1000)
+
           route.getPaths().options.set({
             // балун показывает только информацию о времени в пути с трафиком
             // balloonContentLayout: ymaps.templateLayoutFactory.createClass(
@@ -77,6 +74,11 @@ export default defineComponent({
           map.geoObjects.add(route)
         })
     }
+
+    watch(
+      () => [store.pointA, store.pointB],
+      () => setMap()
+    )
 
     onMounted(async () => {
       await store.load()
