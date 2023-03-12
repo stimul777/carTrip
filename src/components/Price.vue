@@ -1,10 +1,11 @@
 <template>
-  <div>{{ 'Цена поездки ' + value + ' P' }}</div>
+  <v-chip class="ma-2" label text-color="white">
+    <v-icon start icon="mdi-currency-rub"></v-icon>
+    {{ 'Цена поездки ' + value + ' P' }}
+  </v-chip>
 </template>
 
 <script lang="ts">
-import { ref, Ref, watch } from 'vue'
-
 export default {
   name: 'PriceField',
   props: {

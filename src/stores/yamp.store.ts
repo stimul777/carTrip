@@ -26,7 +26,7 @@ export const useYampStore = defineStore({
   actions: {
     async load() {
       await getMap().then((maps: any) => {
-        this.$patch(async (state: any) => {
+        this.$patch((state: any) => {
           state.maps = maps
         })
       })
