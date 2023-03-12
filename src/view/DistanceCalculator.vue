@@ -6,6 +6,7 @@
       @search="onSearch($event)"
       @updateValue="setPoint($event, 'A')"
     />
+    <!-- Добавить + дополнительные точки -->
     <UIAutocomplete
       :items="cities"
       label="Куда"
@@ -17,10 +18,19 @@
       :hint="'Расстояние от точки а к точке Б'"
       :modelValue="distance"
     />
-    <UIinput label="Расход бензина на 100км" />
-    <UIinput label="Цена за 1 литр бензина" />
+    <UIinput
+      label="Расход бензина на 100км"
+      :value="gasolineСonsumption"
+      @update:modelValue="gasolineСonsumption = $event"
+    />
+    <UIinput
+      label="Цена за 1 литр бензина"
+      :value="pricePerLiter"
+      @update:modelValue="pricePerLiter = $event"
+    />
 
-    <UIButton label="Рассчитать" />
+    <Price :value="price" />
+    <!-- <UIButton label="Рассчитать" /> -->
     <!-- <div>Цена: {{  }}</div> -->
   </section>
 </template>
@@ -32,19 +42,24 @@ import useYampStore from '@/stores/yamp.store'
 import UIAutocomplete from '@/components/kit/UIAutocomplete.vue'
 import UIinput from '@/components/kit/UIInput.vue'
 import UIButton from '@/components/kit/UIButton.vue'
+import Price from '@/components/Price.vue'
 
 export default {
   name: 'DistanceCalculatorView',
   components: {
     UIAutocomplete,
     UIinput,
-    UIButton
+    UIButton,
+    Price
   },
   props: {},
 
   setup(props) {
     const store = useYampStore()
     const itemsSearch: Ref<[]> = ref([])
+
+    const gasolineСonsumption = ref(11)
+    const pricePerLiter = ref(53)
 
     const onSearch = async (value: string) => {
       console.log('onSearch', value)
@@ -78,7 +93,23 @@ export default {
       return store.distanceBetweenPoints
     })
 
-    return { distance, itemsSearch, cities, onSearch, setPoint }
+    // (пройденный путь в км) / 100 * (расход на 100км) * (цена за 1л бензина)
+    const price = computed(() => {
+      return Math.round(
+        (store.distanceBetweenPoints / 100) * gasolineСonsumption.value * pricePerLiter.value
+      )
+    })
+
+    return {
+      distance,
+      itemsSearch,
+      cities,
+      price,
+      gasolineСonsumption,
+      pricePerLiter,
+      onSearch,
+      setPoint
+    }
   }
 }
 </script>

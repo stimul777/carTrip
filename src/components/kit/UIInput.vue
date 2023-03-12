@@ -8,10 +8,10 @@ import { computed } from 'vue'
 export default {
   name: 'UIAutocomplete',
 
-  // model: {
-  //   prop: 'modelValue'
-  //   // event: 'update:modelValue',
-  // },
+  model: {
+    prop: 'modelValue',
+    event: 'update:modelValue'
+  },
 
   props: {
     label: {

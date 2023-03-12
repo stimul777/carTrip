@@ -54,6 +54,7 @@ export default defineComponent({
     // Установка точек на карту
     //
     const setMap = () => {
+      if (store.pointA === '' || store.pointB === '') return
       store.maps
         .route([store.pointA, store.pointB], {
           mapStateAutoApply: true
@@ -63,9 +64,9 @@ export default defineComponent({
 
           route.getPaths().options.set({
             // балун показывает только информацию о времени в пути с трафиком
-            // balloonContentLayout: ymaps.templateLayoutFactory.createClass(
-            //   '{{ properties.humanJamsTime }}'
-            // ),
+            balloonContentLayout: store.maps.templateLayoutFactory.createClass(
+              '{{ properties.humanJamsTime }}'
+            ),
             // вы можете настроить внешний вид маршрута
             strokeColor: '0000ffff',
             opacity: 0.9
