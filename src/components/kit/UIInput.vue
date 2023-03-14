@@ -1,9 +1,15 @@
 <template>
-  <v-text-field v-model="value" :label="label" :hint="hint" class="input"></v-text-field>
+  <v-text-field
+    v-model="model"
+    :label="label"
+    :hint="hint"
+    :rules="onValidation(model)"
+    class="input"
+  ></v-text-field>
 </template>
 
 <script lang="ts">
-import { computed } from 'vue'
+import { computed, watch, ref, Ref } from 'vue'
 
 export default {
   name: 'UIAutocomplete',
@@ -28,11 +34,39 @@ export default {
     }
   },
 
-  setup(props) {
-    const value = computed(() => {
-      return props.modelValue
-    })
-    return { value }
+  setup(props, { emit }) {
+    const model: Ref<number> = ref(0)
+
+    const onValidation = (v) => {
+      // return [(v) => typeof v === Number || 'Field is required']
+      // return [() => '']
+      // return [
+      //   (v) => {
+      //     if (typeof v === String) {
+      //       console.log('!!', v)
+      //       model.value = ''
+      //       return 'Field is required'
+      //     }
+      //     // ||
+      //   }
+      // ]
+    }
+
+    watch(
+      () => props.modelValue,
+      (value) => {
+        model.value = value
+      },
+      { immediate: true }
+    )
+
+    watch(
+      () => model.value,
+      (value) => {
+        emit('update:modelValue', value)
+      }
+    )
+    return { model, onValidation }
   }
 }
 </script>

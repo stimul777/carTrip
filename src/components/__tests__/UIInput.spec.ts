@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest'
 
 import { mount } from '@vue/test-utils'
-// import HelloWorld from '../HelloWorld.vue'
+import UIInput from '@/components/kit/UIInput.vue'
 
-describe('HelloWorld', () => {
+describe('UIInput', () => {
   it('renders properly', () => {
-    const wrapper = mount(HelloWorld, { props: { msg: 'Hello Vitest' } })
+    const wrapper = mount(UIInput, { props: { msg: 'Hello Vitest' } })
     expect(wrapper.text()).toContain('Hello Vitest')
   })
 })

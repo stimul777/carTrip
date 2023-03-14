@@ -16,7 +16,8 @@
     <UIinput
       label="Расстояние в км"
       :hint="'Расстояние от точки а к точке Б'"
-      :modelValue="distance"
+      :modelValue="store.distanceBetweenPoints"
+      @update:modelValue="store.distanceBetweenPoints = $event"
     />
     <UIinput
       label="Расход бензина на 100км"
@@ -29,19 +30,16 @@
       @update:modelValue="pricePerLiter = $event"
     />
 
-    <Price :value="price" />
-    <!-- <UIButton label="Рассчитать" /> -->
-    <!-- <div>Цена: {{  }}</div> -->
+    <Price icon="mdi-currency-rub" text="Цена поездки: " unit=" р" :value="price" />
   </section>
 </template>
 
 <script lang="ts">
-import { ref, Ref, computed } from 'vue'
+import { computed, ref, Ref } from 'vue'
 import useYampStore from '@/stores/yamp.store'
 // components
 import UIAutocomplete from '@/components/kit/UIAutocomplete.vue'
 import UIinput from '@/components/kit/UIInput.vue'
-import UIButton from '@/components/kit/UIButton.vue'
 import Price from '@/components/Price.vue'
 
 export default {
@@ -49,7 +47,7 @@ export default {
   components: {
     UIAutocomplete,
     UIinput,
-    UIButton,
+    // UIButton,
     Price
   },
   props: {},
@@ -62,13 +60,10 @@ export default {
     const pricePerLiter = ref(53)
 
     const onSearch = async (value: string) => {
-      console.log('onSearch', value)
       await store.maps
         .suggest(value)
         .then(function (items) {
-          // console.log('items', items)
           itemsSearch.value = items
-          // items - массив поисковых подсказок.
         })
         .catch((error: any) => console.log('Failed to load Yandex Maps', error))
     }
@@ -77,7 +72,6 @@ export default {
       switch (pointName) {
         case 'A':
           store.pointA = value
-          console.log('calc point A', store.pointA)
           break
         case 'B':
           store.pointB = value
@@ -89,11 +83,7 @@ export default {
       return itemsSearch.value.map((item: any) => item.displayName)
     })
 
-    const distance = computed(() => {
-      return store.distanceBetweenPoints
-    })
-
-    // (пройденный путь в км) / 100 * (расход на 100км) * (цена за 1л бензина)
+    // цена = (пройденный путь в км) / 100 * (расход на 100км) * (цена за 1л бензина)
     const price = computed(() => {
       return Math.round(
         (store.distanceBetweenPoints / 100) * gasolineСonsumption.value * pricePerLiter.value
@@ -101,12 +91,12 @@ export default {
     })
 
     return {
-      distance,
       itemsSearch,
       cities,
       price,
       gasolineСonsumption,
       pricePerLiter,
+      store,
       onSearch,
       setPoint
     }

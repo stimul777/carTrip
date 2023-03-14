@@ -4,7 +4,9 @@
     v-model:search="search"
     :label="label"
     :items="items"
-    :loading="true"
+    :loading="isLoading"
+    :disabled="isDisabled"
+    density="comfortable"
     class="autocomplete"
   />
 </template>
@@ -21,7 +23,15 @@ export default {
     },
     items: {
       type: Array,
-      default: () => ['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']
+      default: () => []
+    },
+    isDisabled: {
+      type: Boolean,
+      default: false
+    },
+    isLoading: {
+      type: Boolean,
+      default: true
     }
   },
 
