@@ -6,7 +6,6 @@ const router = createRouter({
     {
       path: '/',
       name: 'distanceCalculator',
-      breadCrumbs: 'Расстояние',
       component: () => import('@/view/DistanceCalculator.vue')
     },
     {

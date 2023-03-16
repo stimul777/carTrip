@@ -22,18 +22,18 @@
     />
     <UIinput
       label="Расстояние в км"
-      :modelValue="store.distanceBetweenPoints"
-      @update:modelValue="store.distanceBetweenPoints = $event"
+      :modelValue="yampStore.distanceBetweenPoints"
+      @update:modelValue="yampStore.distanceBetweenPoints = $event"
     />
     <UIinput
       label="Расход бензина на 100км"
-      :value="gasolineСonsumption"
-      @update:modelValue="gasolineСonsumption = $event"
+      :value="calcsStore.gasolineConsumption"
+      @update:modelValue="calcsStore.gasolineConsumption = $event"
     />
     <UIinput
       label="Цена за 1 литр бензина"
-      :value="pricePerLiter"
-      @update:modelValue="pricePerLiter = $event"
+      :value="calcsStore.pricePerLiter"
+      @update:modelValue="calcsStore.pricePerLiter = $event"
     />
 
     <Price icon="mdi-currency-rub" text="Цена поездки: " unit=" р" :value="price" />
@@ -43,6 +43,8 @@
 <script lang="ts">
 import { computed, ref, Ref } from 'vue'
 import useYampStore from '@/stores/yamp.store'
+import useCalculatorsStore from '@/stores/calculators.store'
+
 // components
 import UIAutocomplete from '@/components/kit/UIAutocomplete.vue'
 import UIinput from '@/components/kit/UIInput.vue'
@@ -59,14 +61,16 @@ export default {
   props: {},
 
   setup(props) {
-    const store = useYampStore()
+    const yampStore = useYampStore()
+    const calcsStore = useCalculatorsStore()
+
     const itemsSearch: Ref<[]> = ref([])
 
-    const gasolineСonsumption = ref(11)
-    const pricePerLiter = ref(53)
+    // const gasolineConsumptionСonsumption = ref(11)
+    // const pricePerLiter = ref(53)
 
     const onSearch = async (value: string) => {
-      await store.maps
+      await yampStore.maps
         .suggest(value)
         .then(function (items) {
           itemsSearch.value = items
@@ -77,10 +81,10 @@ export default {
     const setPoint = (value: string, pointName: 'A' | 'B') => {
       switch (pointName) {
         case 'A':
-          store.pointA = value
+          yampStore.pointA = value
           break
         case 'B':
-          store.pointB = value
+          yampStore.pointB = value
           break
       }
     }
@@ -92,7 +96,9 @@ export default {
     // цена = (пройденный путь в км) / 100 * (расход на 100км) * (цена за 1л бензина)
     const price = computed(() => {
       return Math.round(
-        (store.distanceBetweenPoints / 100) * gasolineСonsumption.value * pricePerLiter.value
+        (yampStore.distanceBetweenPoints / 100) *
+          calcsStore.gasolineConsumption *
+          calcsStore.pricePerLiter
       )
     })
 
@@ -100,9 +106,8 @@ export default {
       itemsSearch,
       cities,
       price,
-      gasolineСonsumption,
-      pricePerLiter,
-      store,
+      calcsStore,
+      yampStore,
       onSearch,
       setPoint
     }

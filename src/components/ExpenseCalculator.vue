@@ -4,14 +4,14 @@
       <UIinput
         class="input"
         label="Сколько залил топлива в бак в литрах"
-        :value="fuelVolume"
-        @update:modelValue="fuelVolume = $event"
+        :value="calcsStore.fuelVolume"
+        @update:modelValue="calcsStore.fuelVolume = $event"
       />
       <UIinput
         class="input"
         label="Сколько км проехал на этом топливе"
-        :value="distance"
-        @update:modelValue="distance = $event"
+        :value="calcsStore.fullConsumption"
+        @update:modelValue="calcsStore.fullConsumption = $event"
       />
     </div>
 
@@ -20,7 +20,8 @@
 </template>
 
 <script lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
+import useCalculatorsStore from '@/stores/calculators.store'
 import UIinput from '@/components/kit/UIInput.vue'
 import Price from '@/components/Price.vue'
 
@@ -29,17 +30,22 @@ export default {
     UIinput,
     Price
   },
-  props: {},
 
-  setup(props) {
-    const fuelVolume = ref(60)
-    const distance = ref(500)
+  setup() {
+    const calcsStore = useCalculatorsStore()
 
-    100
-    const consumption = computed(() => Math.round((fuelVolume.value / distance.value) * 100))
+    // (литры / километры) х 100
+    const consumption = computed(() => {
+      const result = Math.round((calcsStore.fuelVolume / calcsStore.fullConsumption) * 100)
 
-    // (литры / километры) х
-    return { fuelVolume, distance, consumption }
+      return result
+    })
+
+    watch(consumption, (value) => {
+      calcsStore.gasolineConsumption = value
+    })
+
+    return { calcsStore, consumption }
   }
 }
 </script>
