@@ -56,5 +56,6 @@ export default {
 .autocomplete {
   height: 20px;
   width: 220px;
+  color: white;
 }
 </style>

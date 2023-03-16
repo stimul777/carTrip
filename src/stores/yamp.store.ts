@@ -1,8 +1,6 @@
 import { ref, computed } from 'vue'
-import { acceptHMRUpdate, defineStore } from 'pinia'
+import { defineStore } from 'pinia'
 import { getMap } from '@/api/yandexMap.api'
-
-// import ymaps from 'ymaps'
 
 //
 // Карты. Создание, данные

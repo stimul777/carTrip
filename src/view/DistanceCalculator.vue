@@ -1,11 +1,18 @@
 <template>
   <section class="distance-calculator-container">
+    <!-- <div class="field-container"> -->
     <UIAutocomplete
       :items="cities"
       label="Откуда"
       @search="onSearch($event)"
       @updateValue="setPoint($event, 'A')"
     />
+
+    <!-- <v-tooltip text="Tooltip">
+        <template v-slot:activator="{ props }"> <v-icon icon="mdi-help"></v-icon> </template>
+      </v-tooltip> -->
+    <!-- </div> -->
+
     <!-- Добавить + дополнительные точки -->
     <UIAutocomplete
       :items="cities"
@@ -15,7 +22,6 @@
     />
     <UIinput
       label="Расстояние в км"
-      :hint="'Расстояние от точки а к точке Б'"
       :modelValue="store.distanceBetweenPoints"
       @update:modelValue="store.distanceBetweenPoints = $event"
     />
@@ -112,5 +118,15 @@ export default {
   justify-content: space-around;
   width: 300px;
   border: 1px solid red;
+  height: 400px;
+}
+
+.field-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid red; */
+  width: 300px;
+  height: 50px;
 }
 </style>

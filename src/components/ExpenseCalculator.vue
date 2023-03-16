@@ -3,23 +3,24 @@
     <div class="input-container">
       <UIinput
         class="input"
-        label="Сколько залил топлива в бак"
-        :value="gasolineСonsumption"
-        @update:modelValue="gasolineСonsumption = $event"
+        label="Сколько залил топлива в бак в литрах"
+        :value="fuelVolume"
+        @update:modelValue="fuelVolume = $event"
       />
       <UIinput
         class="input"
         label="Сколько км проехал на этом топливе"
-        :value="pricePerLiter"
-        @update:modelValue="pricePerLiter = $event"
+        :value="distance"
+        @update:modelValue="distance = $event"
       />
     </div>
 
-    <Price text="Расход топлива на 100км: " unit=" л" icon="mdi-fuel" :value="price" />
+    <Price text="Расход топлива на 100км: " unit=" л" icon="mdi-fuel" :value="consumption" />
   </section>
 </template>
 
 <script lang="ts">
+import { computed, ref } from 'vue'
 import UIinput from '@/components/kit/UIInput.vue'
 import Price from '@/components/Price.vue'
 
@@ -31,7 +32,14 @@ export default {
   props: {},
 
   setup(props) {
-    return {}
+    const fuelVolume = ref(60)
+    const distance = ref(500)
+
+    100
+    const consumption = computed(() => Math.round((fuelVolume.value / distance.value) * 100))
+
+    // (литры / километры) х
+    return { fuelVolume, distance, consumption }
   }
 }
 </script>
@@ -48,12 +56,13 @@ export default {
 .input-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 200px;
   /* border: 1px solid red; */
 }
 
 .input {
-  max-height: 60px;
+  /* max-height: 60px; */
   /* border: 1px solid red; */
 }
 </style>

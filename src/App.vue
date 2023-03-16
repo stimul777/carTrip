@@ -4,17 +4,47 @@
       <HeaderView />
       <YandexMap class="map-wrapper" />
     </section>
-    <RouterView />
+    <v-card class="card" :title="routeTitle" subtitle="222">
+      <v-container class="route-container">
+        <RouterView />
+      </v-container>
+    </v-card>
   </section>
 </template>
 
-<script setup lang="ts">
-import { RouterView } from 'vue-router'
+<script lang="ts">
+import { computed } from 'vue'
+import { RouterView, useRouter, useRoute } from 'vue-router'
 import HeaderView from './view/HeaderView.vue'
 import YandexMap from '@/components/YandexMap.vue'
+
+export default {
+  components: {
+    HeaderView,
+    YandexMap
+  },
+  props: {},
+
+  setup(props) {
+    const route = useRoute()
+
+    const routeTitle = computed(() => {
+      return route.name === 'distanceCalculator' ? 'Расстояние' : 'Расход'
+    })
+    return { routeTitle }
+  }
+}
 </script>
 
 <style scoped>
+.route-container {
+  /* background-color: black; */
+}
+.card {
+  background-color: var(--color-background);
+  /* z-index: -22; */
+}
+
 .content {
   display: flex;
   /* width: 100%; */

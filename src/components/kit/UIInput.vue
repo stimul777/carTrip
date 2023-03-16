@@ -1,11 +1,5 @@
 <template>
-  <v-text-field
-    v-model="model"
-    :label="label"
-    :hint="hint"
-    :rules="onValidation(model)"
-    class="input"
-  ></v-text-field>
+  <v-text-field class="input" v-model="model" :label="label" variant="outlined"></v-text-field>
 </template>
 
 <script lang="ts">
@@ -24,10 +18,10 @@ export default {
       type: String,
       default: 'Значение'
     },
-    hint: {
-      type: String,
-      default: 'Значение'
-    },
+    // hint: {
+    //   type: String,
+    //   default: 'Значение'
+    // },
     modelValue: {
       type: Number,
       default: 0
@@ -75,5 +69,6 @@ export default {
 .input {
   height: 20px;
   width: 220px;
+  color: white;
 }
 </style>

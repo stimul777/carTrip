@@ -1,5 +1,5 @@
 <template>
-  <v-chip class="ma-2" label text-color="white">
+  <v-chip class="chip" label text-color="white">
     <v-icon start :icon="icon"></v-icon>
     {{ text + value + unit }}
   </v-chip>
@@ -29,4 +29,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.chip {
+  color: white;
+}
+</style>
