@@ -1,18 +1,20 @@
 <template>
-  <section class="content">
-    <section class="content-wrapper">
-      <HeaderView />
-      <YandexMap class="map-wrapper" />
-      <div class="footer-icons">
-        <v-icon>mdi-vuejs</v-icon>
-        <v-icon> mdi-vuetify</v-icon>
-      </div>
+  <section class="app-wrapper night">
+    <section class="content">
+      <section class="content-wrapper">
+        <HeaderView />
+        <YandexMap class="map-wrapper" />
+        <div class="footer-icons">
+          <v-icon>mdi-vuejs</v-icon>
+          <v-icon> mdi-vuetify</v-icon>
+        </div>
+      </section>
+      <v-card class="card" :title="routeTitle">
+        <v-container class="route-container">
+          <RouterView />
+        </v-container>
+      </v-card>
     </section>
-    <v-card class="card" :title="routeTitle">
-      <v-container class="route-container">
-        <RouterView />
-      </v-container>
-    </v-card>
   </section>
 </template>
 
@@ -23,6 +25,7 @@ import HeaderView from './view/HeaderView.vue'
 import YandexMap from '@/components/YandexMap.vue'
 
 export default {
+  name: 'App',
   components: {
     HeaderView,
     YandexMap
@@ -41,6 +44,22 @@ export default {
 </script>
 
 <style scoped>
+.app-wrapper {
+  /* max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal; */
+  /* display: flex; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 100vh;
+  font-weight: normal;
+  overflow: none;
+}
+
 .route-container {
   /* background-color: black; */
 }
@@ -56,8 +75,11 @@ export default {
 .content {
   display: flex;
   justify-content: space-between;
-  width: calc(100% + 20px);
-  /* border: 1px solid green; */
+  /* margin: 0 auto; */
+  max-width: 70%;
+  max-height: 590px;
+  border: 1px solid green;
+  /* padding: 2rem; */
 }
 
 .content-wrapper {

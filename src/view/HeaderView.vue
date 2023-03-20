@@ -2,24 +2,10 @@
   <header>
     <div class="greetings">
       <div class="header">
-        <div class="language">
-          <p>Ru</p>
-          <v-switch></v-switch>
-          <p>Eng</p>
-        </div>
+        <SwitchLang />
         <h1 class="green">Calculator</h1>
-        <!-- <div class="control-settings"> -->
-
-        <div class="time-of-day">
-          <v-switch
-            append-icon="mdi-weather-night"
-            prepend-icon="mdi-white-balance-sunny"
-            class="switch"
-          ></v-switch>
-        </div>
-        <!-- </div> -->
+        <SwitchThemes @selectedTheme="selectedTheme" />
       </div>
-      <!-- <h3>Калькулятор</h3> -->
     </div>
     <div class="wrapper-nav">
       <nav class="nav">
@@ -32,6 +18,28 @@
 
 <script lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import SwitchLang from '@/components/modules/header/SwitchLang.vue'
+import SwitchThemes from '@/components/modules/header/SwitchThemes.vue'
+
+export default {
+  name: 'HeaderView',
+
+  components: {
+    SwitchLang,
+    SwitchThemes
+  },
+  // props: {},
+
+  setup(props) {
+    const selectedTheme = (event: string) => {
+      console.log(event)
+    }
+
+    return {
+      selectedTheme
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -43,11 +51,11 @@ import { RouterLink, RouterView } from 'vue-router'
   align-items: center;
   justify-content: center;
   /* margin: 0 20px 0 0; */
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .switch {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   /* margin: 0;
   padding: 0; */
 }
