@@ -122,8 +122,8 @@ export default {
   align-items: center;
   justify-content: space-around;
   width: 300px;
-  border: 1px solid red;
-  height: 400px;
+  /* border: 1px solid red; */
+  min-height: 460px;
 }
 
 .field-container {

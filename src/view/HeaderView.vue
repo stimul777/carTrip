@@ -2,40 +2,79 @@
   <header>
     <div class="greetings">
       <div class="header">
+        <div class="language">
+          <p>Ru</p>
+          <v-switch></v-switch>
+          <p>Eng</p>
+        </div>
         <h1 class="green">Calculator</h1>
-        <p>Ru</p>
+        <!-- <div class="control-settings"> -->
+
+        <div class="time-of-day">
+          <v-switch
+            append-icon="mdi-weather-night"
+            prepend-icon="mdi-white-balance-sunny"
+            class="switch"
+          ></v-switch>
+        </div>
+        <!-- </div> -->
       </div>
-      <h3>Калькулятор</h3>
+      <!-- <h3>Калькулятор</h3> -->
     </div>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Калькулятор расстояния</RouterLink>
+    <div class="wrapper-nav">
+      <nav class="nav">
+        <RouterLink class="nav-item" to="/">Калькулятор расстояния</RouterLink>
         <RouterLink to="/expense">Калькулятор расхода</RouterLink>
       </nav>
     </div>
   </header>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import YandexMap from '@/components/YandexMap.vue'
 </script>
 
 <style scoped>
-.content {
+.control-settings {
   display: flex;
+}
+.language {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin: 0 20px 0 0; */
+  border: 1px solid red;
+}
+
+.switch {
+  border: 1px solid red;
+  /* margin: 0;
+  padding: 0; */
+}
+
+.time-of-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid red; */
+}
+
+.wrapper-nav {
+  display: flex;
+  align-items: center;
   /* width: 100%; */
-  border: 1px solid green;
+  /* border: 1px solid green; */
+}
+
+.nav {
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid pink; */
 }
 
 .content-wrapper {
-  border: 1px solid red;
-}
-
-.map-wrapper {
-  width: 600px;
-  height: 400px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 header {
@@ -49,10 +88,14 @@ header {
 }
 
 nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  height: 60px;
+  font-size: 14px;
+  /* text-align: center;
+  margin-bottom: 1rem; */
 }
 
 nav a.router-link-exact-active {
@@ -78,7 +121,7 @@ nav a:first-of-type {
   justify-content: space-between;
   align-items: center;
   /* width: 100%; */
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 h1 {

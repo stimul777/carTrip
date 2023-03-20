@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 // Калькулятор. Хранение данных
 //
 export const useCalculatorsStore = defineStore({
-  id: 'calcaulators-store',
+  id: 'calculators-store',
 
   state: () => ({
     gasolineConsumption: 11, //Расход бензина на 100км

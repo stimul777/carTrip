@@ -3,8 +3,12 @@
     <section class="content-wrapper">
       <HeaderView />
       <YandexMap class="map-wrapper" />
+      <div class="footer-icons">
+        <v-icon>mdi-vuejs</v-icon>
+        <v-icon> mdi-vuetify</v-icon>
+      </div>
     </section>
-    <v-card class="card" :title="routeTitle" subtitle="222">
+    <v-card class="card" :title="routeTitle">
       <v-container class="route-container">
         <RouterView />
       </v-container>
@@ -41,24 +45,37 @@ export default {
   /* background-color: black; */
 }
 .card {
-  background-color: var(--color-background);
+  background-color: rgba(0, 0, 0, 0.164);
   /* z-index: -22; */
 }
 
+/* .v-card-title {
+  color: red !important;
+} */
+
 .content {
   display: flex;
-  /* width: 100%; */
-  border: 1px solid green;
+  justify-content: space-between;
+  width: calc(100% + 20px);
+  /* border: 1px solid green; */
 }
 
 .content-wrapper {
-  border: 1px solid red;
+  border: 1px solid rgba(0, 0, 0, 0.301);
+  border-radius: 6px;
 }
 
 .map-wrapper {
   width: 600px;
   height: 400px;
   border: 1px solid red;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
 }
 
 header {
