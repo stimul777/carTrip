@@ -1,10 +1,10 @@
-.night {
+.night-theme {
   /* border: 2px solid var(--vt-c-white); */
   background-color: var(--color-background);
 
 }
 
-.day {
+.day-theme {
     border: 2px solid orange;
     background-color: rgba(255, 255, 255, 0.24);
 

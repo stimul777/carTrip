@@ -10,21 +10,17 @@ export const useYampStore = defineStore({
 
   state: () => ({
     // yamps: null,
-    maps: null as any, //загружаемый класс карт
+    maps: null, //загружаемый класс карт
 
     distanceBetweenPoints: 0, //расстояние между точками в км.
     pointA: '',
     pointB: ''
   }),
 
-  getters: {
-    operationTypes(state) {}
-  },
-
   actions: {
     async load() {
-      await getMap().then((maps: any) => {
-        this.$patch((state: any) => {
+      await getMap().then((maps) => {
+        this.$patch((state) => {
           state.maps = maps
         })
       })
@@ -33,7 +29,3 @@ export const useYampStore = defineStore({
 })
 
 export default useYampStore
-
-// if (import.meta.hot) {
-//   import.meta.hot.accept(acceptHMRUpdate(useYampStore, import.meta.hot))
-// }

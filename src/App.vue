@@ -1,8 +1,8 @@
 <template>
-  <section class="app-wrapper night">
+  <section class="app-wrapper" :class="[onTheme ? 'day-theme' : 'night-theme']">
     <section class="content">
       <section class="content-wrapper">
-        <HeaderView />
+        <HeaderView :isSwitchTheme="onTheme" @selectedTheme="theme.setTheme($event)" />
         <YandexMap class="map-wrapper" />
         <div class="footer-icons">
           <v-icon>mdi-vuejs</v-icon>
@@ -19,10 +19,11 @@
 </template>
 
 <script lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { RouterView, useRouter, useRoute } from 'vue-router'
 import HeaderView from './view/HeaderView.vue'
 import YandexMap from '@/components/YandexMap.vue'
+import useThemeStore from '@/stores/theme.store'
 
 export default {
   name: 'App',
@@ -34,11 +35,15 @@ export default {
 
   setup(props) {
     const route = useRoute()
+    const theme = useThemeStore()
 
     const routeTitle = computed(() => {
       return route.name === 'distanceCalculator' ? 'Расстояние' : 'Расход'
     })
-    return { routeTitle }
+
+    const onTheme = computed(() => theme.getTheme)
+
+    return { routeTitle, theme, onTheme }
   }
 }
 </script>

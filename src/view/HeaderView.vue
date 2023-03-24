@@ -4,7 +4,7 @@
       <div class="header">
         <SwitchLang />
         <h1 class="green">Calculator</h1>
-        <SwitchThemes @selectedTheme="selectedTheme" />
+        <SwitchThemes :isSwitch="isSwitchTheme" @selectedTheme="selectedTheme($event)" />
       </div>
     </div>
     <div class="wrapper-nav">
@@ -28,11 +28,15 @@ export default {
     SwitchLang,
     SwitchThemes
   },
-  // props: {},
+  props: {
+    isSwitchTheme: {
+      type: Boolean
+    }
+  },
 
-  setup(props) {
-    const selectedTheme = (event: string) => {
-      console.log(event)
+  setup(props, { emit }) {
+    const selectedTheme = ($event: boolean) => {
+      emit('selectedTheme', $event)
     }
 
     return {
