@@ -2,7 +2,12 @@
   <section class="app-wrapper" :class="[onTheme ? 'day-theme' : 'night-theme']">
     <section class="content">
       <section class="content-wrapper">
-        <HeaderView :onTheme="onTheme" @selectedTheme="theme.setTheme($event)" />
+        {{ t('greeting') }}
+        <HeaderView
+          :onTheme="onTheme"
+          @selectedTheme="theme.setTheme($event)"
+          @selectedLocale="switchLocale"
+        />
         <YandexMap class="map-wrapper" />
         <div class="footer-icons">
           <v-icon>mdi-vuejs</v-icon>
@@ -21,6 +26,7 @@
 <script lang="ts">
 import { computed, onMounted } from 'vue'
 import { RouterView, useRouter, useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import HeaderView from './view/HeaderView.vue'
 import YandexMap from '@/components/YandexMap.vue'
 import useThemeStore from '@/stores/theme.store'
@@ -34,8 +40,14 @@ export default {
   props: {},
 
   setup(props) {
+    const { t, locale } = useI18n()
     const route = useRoute()
     const theme = useThemeStore()
+
+    const switchLocale = (lang: boolean) => {
+      let res = lang ? 'en' : 'ru'
+      locale.value = res
+    }
 
     const routeTitle = computed(() => {
       return route.name === 'distanceCalculator' ? 'Расстояние' : 'Расход'
@@ -43,7 +55,9 @@ export default {
 
     const onTheme = computed(() => theme.getTheme)
 
-    return { routeTitle, theme, onTheme }
+    onMounted(() => switchLocale(false))
+
+    return { routeTitle, theme, onTheme, switchLocale, t }
   }
 }
 </script>

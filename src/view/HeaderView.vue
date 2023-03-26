@@ -1,6 +1,10 @@
 <template>
   <header>
-    <SettingsHeader :onTheme="onTheme" @selectedTheme="selectedTheme($event)" />
+    <SettingsHeader
+      :onTheme="onTheme"
+      @selectedTheme="selectedTheme($event)"
+      @selectedLocale="$emit('selectedLocale', $event)"
+    />
     <NavHeader />
   </header>
 </template>

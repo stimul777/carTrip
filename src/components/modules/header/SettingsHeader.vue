@@ -7,8 +7,9 @@
         prependIcon="mdi-translate-off"
         :class="[colorSwitch ? 'onSwitch' : 'offSwitch']"
         :style="{ color: colorSwitch }"
+        @selectedSwitch="$emit('selectedLocale', $event)"
       />
-      <h1 class="header-h1">Calculator</h1>
+      <h1 class="header-h1">{{ t('header') }}</h1>
       <!-- Тема: день/ночь -->
       <UISwitch
         appendIcon="mdi-white-balance-sunny"
@@ -25,6 +26,7 @@
 import { ref, watch, computed } from 'vue'
 import type { Ref } from 'vue'
 import UISwitch from '@/components/kit/UISwitch.vue'
+import { useI18n } from 'vue-i18n'
 
 export default {
   name: 'SettingsHeader',
@@ -38,6 +40,8 @@ export default {
   },
 
   setup(props, { emit }) {
+    const { t } = useI18n()
+
     const colorSwitch = computed(() => props.onTheme)
 
     const selectedTheme = ($event: boolean) => {
@@ -46,7 +50,8 @@ export default {
 
     return {
       selectedTheme,
-      colorSwitch
+      colorSwitch,
+      t
     }
   }
 }
