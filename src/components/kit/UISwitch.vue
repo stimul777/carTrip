@@ -2,8 +2,8 @@
   <div>
     <v-switch
       v-model="value"
-      append-icon="mdi-white-balance-sunny"
-      prepend-icon="mdi-weather-night"
+      :append-icon="appendIcon"
+      :prepend-icon="prependIcon"
       class="switch"
     ></v-switch>
   </div>
@@ -19,17 +19,25 @@ export default {
   props: {
     isSwitch: {
       type: Boolean
+    },
+    appendIcon: {
+      type: String,
+      default: ''
+    },
+    prependIcon: {
+      type: String,
+      default: ''
     }
   },
 
-  emits: ['selectedTheme'],
+  emits: ['selectedSwitch'],
 
   setup(props, { emit }) {
     const value: Ref<Boolean> = ref(props.isSwitch)
 
     watch(
       () => value.value,
-      () => emit('selectedTheme', value.value)
+      () => emit('selectedSwitch', value.value)
     )
 
     return { value }

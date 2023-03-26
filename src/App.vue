@@ -2,7 +2,7 @@
   <section class="app-wrapper" :class="[onTheme ? 'day-theme' : 'night-theme']">
     <section class="content">
       <section class="content-wrapper">
-        <HeaderView :isSwitchTheme="onTheme" @selectedTheme="theme.setTheme($event)" />
+        <HeaderView :onTheme="onTheme" @selectedTheme="theme.setTheme($event)" />
         <YandexMap class="map-wrapper" />
         <div class="footer-icons">
           <v-icon>mdi-vuejs</v-icon>
@@ -69,7 +69,8 @@ export default {
   /* background-color: black; */
 }
 .card {
-  background-color: rgba(0, 0, 0, 0.164);
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid red;
   /* z-index: -22; */
 }
 
@@ -83,7 +84,10 @@ export default {
   /* margin: 0 auto; */
   max-width: 70%;
   max-height: 590px;
-  border: 1px solid green;
+  border: 1px solid #2c2c2c2a;
+  border-radius: 10px;
+  background-color: #e6e2e28a;
+  padding: 10px;
   /* padding: 2rem; */
 }
 

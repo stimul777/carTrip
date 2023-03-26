@@ -69,6 +69,6 @@ export default {
 .input {
   height: 20px;
   width: 220px;
-  color: white;
+  /* color: white; */
 }
 </style>
