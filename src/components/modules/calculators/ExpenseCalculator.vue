@@ -3,25 +3,31 @@
     <div class="input-container">
       <UIinput
         class="input"
-        label="Сколько залил топлива в бак в литрах"
+        :label="t('calcExpense.fuelVolumeInLiters.value')"
         :value="calcsStore.fuelVolume"
         @update:modelValue="calcsStore.fuelVolume = $event"
       />
       <UIinput
         class="input"
-        label="Сколько км проехал на этом топливе"
+        :label="t('calcExpense.driveOnFuel.value')"
         :value="calcsStore.fullConsumption"
         @update:modelValue="calcsStore.fullConsumption = $event"
       />
     </div>
 
-    <Price text="Расход топлива на 100км: " unit=" л" icon="mdi-fuel" :value="consumption" />
+    <Price
+      :text="t('calcExpense.fuelConsumption.value')"
+      unit=" л"
+      icon="mdi-fuel"
+      :value="consumption"
+    />
   </section>
 </template>
 
 <script lang="ts">
 import { computed, ref, watch } from 'vue'
 import useCalculatorsStore from '@/stores/calculators.store'
+import { useI18n } from 'vue-i18n'
 import UIinput from '@/components/kit/UIInput.vue'
 import Price from '@/components/Price.vue'
 
@@ -32,6 +38,8 @@ export default {
   },
 
   setup() {
+    const { t } = useI18n()
+
     const calcsStore = useCalculatorsStore()
 
     // (литры / километры) х 100
@@ -45,7 +53,7 @@ export default {
       calcsStore.gasolineConsumption = value
     })
 
-    return { calcsStore, consumption }
+    return { calcsStore, consumption, t }
   }
 }
 </script>

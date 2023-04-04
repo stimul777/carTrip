@@ -49,9 +49,9 @@ export default {
     }
 
     return {
+      t,
       selectedTheme,
-      colorSwitch,
-      t
+      colorSwitch
     }
   }
 }

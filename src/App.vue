@@ -2,7 +2,6 @@
   <section class="app-wrapper" :class="[onTheme ? 'day-theme' : 'night-theme']">
     <section class="content">
       <section class="content-wrapper">
-        {{ t('greeting') }}
         <HeaderView
           :onTheme="onTheme"
           @selectedTheme="theme.setTheme($event)"
@@ -45,12 +44,13 @@ export default {
     const theme = useThemeStore()
 
     const switchLocale = (lang: boolean) => {
-      let res = lang ? 'en' : 'ru'
-      locale.value = res
+      locale.value = lang ? 'en' : 'ru'
     }
 
     const routeTitle = computed(() => {
-      return route.name === 'distanceCalculator' ? 'Расстояние' : 'Расход'
+      return route.name === 'distanceCalculator'
+        ? t('calcDistance.header')
+        : t('calcExpense.header')
     })
 
     const onTheme = computed(() => theme.getTheme)

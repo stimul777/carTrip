@@ -3,7 +3,7 @@
     <!-- <div class="field-container"> -->
     <UIAutocomplete
       :items="cities"
-      label="Откуда"
+      :label="t('calcDistance.from.value')"
       @search="onSearch($event)"
       @updateValue="setPoint($event, 'A')"
     />
@@ -16,27 +16,27 @@
     <!-- Добавить + дополнительные точки -->
     <UIAutocomplete
       :items="cities"
-      label="Куда"
+      :label="t('calcDistance.where.value')"
       @search="onSearch($event)"
       @updateValue="setPoint($event, 'B')"
     />
     <UIinput
-      label="Расстояние в км"
+      :label="t('calcDistance.distance.value')"
       :modelValue="yampStore.distanceBetweenPoints"
       @update:modelValue="yampStore.distanceBetweenPoints = $event"
     />
     <UIinput
-      label="Расход бензина на 100км"
+      :label="t('calcDistance.fuelConsumption.value')"
       :value="calcsStore.gasolineConsumption"
       @update:modelValue="calcsStore.gasolineConsumption = $event"
     />
     <UIinput
-      label="Цена за 1 литр бензина"
+      :label="t('calcDistance.priceGasoline.value')"
       :value="calcsStore.pricePerLiter"
       @update:modelValue="calcsStore.pricePerLiter = $event"
     />
 
-    <Price icon="mdi-currency-rub" text="Цена поездки: " unit=" р" :value="price" />
+    <Price icon="mdi-currency-rub" :text="t('calcDistance.priceOfTrip')" unit=" р" :value="price" />
   </section>
 </template>
 
@@ -44,6 +44,7 @@
 import { computed, ref, Ref } from 'vue'
 import useYampStore from '@/stores/yamp.store'
 import useCalculatorsStore from '@/stores/calculators.store'
+import { useI18n } from 'vue-i18n'
 
 // components
 import UIAutocomplete from '@/components/kit/UIAutocomplete.vue'
@@ -61,6 +62,7 @@ export default {
   props: {},
 
   setup(props) {
+    const { t } = useI18n()
     const yampStore = useYampStore()
     const calcsStore = useCalculatorsStore()
 
@@ -109,7 +111,8 @@ export default {
       calcsStore,
       yampStore,
       onSearch,
-      setPoint
+      setPoint,
+      t
     }
   }
 }

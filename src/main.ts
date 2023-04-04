@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
 import { createPinia } from 'pinia'
-import { useI18n } from 'vue-i18n'
+import messages from '@/languages/mainLang'
 
 import App from './App.vue'
 import router from './router'
@@ -28,16 +28,7 @@ const vuetify = createVuetify({
 const i18n = createI18n({
   legacy: false,
   locale: 'en',
-  messages: {
-    en: {
-      greeting: 'Hello World!',
-      header: 'Calculator'
-    },
-    ru: {
-      greeting: 'Привет мир!',
-      header: 'Калькулятор'
-    }
-  }
+  messages: messages
 })
 
 app.use(createPinia())

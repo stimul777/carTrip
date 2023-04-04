@@ -1,14 +1,15 @@
 <template>
   <div class="wrapper-nav">
     <nav class="nav">
-      <RouterLink class="nav-item" to="/">Калькулятор расстояния</RouterLink>
-      <RouterLink to="/expense">Калькулятор расхода</RouterLink>
+      <RouterLink class="nav-item" to="/">{{ t('distanceCalc') }}</RouterLink>
+      <RouterLink to="/expense">{{ t('ExpenseCalc') }}</RouterLink>
     </nav>
   </div>
 </template>
 
 <script lang="ts">
 import { RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 export default {
   name: 'NavHeader',
@@ -20,13 +21,15 @@ export default {
   },
 
   setup(props, { emit }) {
+    const { t } = useI18n()
 
     const selectedTheme = ($event: boolean) => {
       emit('selectedTheme', $event)
     }
 
     return {
-      selectedTheme
+      selectedTheme,
+      t
     }
   }
 }
