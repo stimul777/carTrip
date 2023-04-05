@@ -1,43 +1,40 @@
 import { defineStore } from 'pinia'
+import { useI18n } from 'vue-i18n'
 
 //
 // Переключение языков
 //
 export const useLocalization = defineStore({
-  id: 'theme-store',
+  id: 'localization-store',
+
+  state: () => ({
+    lang: 'ru'
+  }),
 
   getters: {
-    getTheme(state): boolean {
+    getLang(state): boolean {
+      const { locale } = useI18n()
       //@ts-ignore
-      if (JSON.parse(localStorage.getItem('isTheme')) === null) {
-        localStorage.setItem('isTheme', JSON.stringify(state.isDayOrNight))
+      if (JSON.parse(localStorage.getItem('isLocal')) === null) {
+        localStorage.setItem('isLocal', JSON.stringify(state.lang))
       }
       //@ts-ignore
-      state.isDayOrNight = JSON.parse(localStorage.getItem('isTheme'))
-      return state.isDayOrNight
+      state.lang = JSON.parse(localStorage.getItem('isLocal'))
+      locale.value = state.lang
+      return state.lang === 'ru' ? false : true
     }
   },
 
   actions: {
-    setTheme(event: boolean): void {
+    setLang(event: boolean): void {
       this.$patch((state: any) => {
-        localStorage.setItem('isTheme', JSON.stringify(event))
+        const lang = event ? 'en' : 'ru'
+        localStorage.setItem('isLocal', JSON.stringify(lang))
         //@ts-ignore
-        state.isDayOrNight = JSON.parse(localStorage.getItem('isTheme'))
+        state.lang = JSON.parse(localStorage.getItem('isLocal'))
       })
     }
-  },
-
-  state: () => ({
-    appText: {
-      ru: {
-        header: 'Калькулятор'
-      },
-      en: {
-        header: 'Calculator'
-      }
-    }
-  })
+  }
 })
 
 export default useLocalization

@@ -2,15 +2,15 @@
   <header>
     <SettingsHeader
       :onTheme="onTheme"
-      @selectedTheme="selectedTheme($event)"
-      @selectedLocale="$emit('selectedLocale', $event)"
+      :onLang="onLang"
+      @selectedTheme="$emit('selectedTheme', $event)"
+      @selectedLang="$emit('selectedLang', $event)"
     />
     <NavHeader />
   </header>
 </template>
 
 <script lang="ts">
-import { computed } from 'vue'
 import SettingsHeader from '@/components/modules/header/SettingsHeader.vue'
 import NavHeader from '@/components/modules/header/NavHeader.vue'
 
@@ -24,16 +24,9 @@ export default {
   props: {
     onTheme: {
       type: Boolean
-    }
-  },
-
-  setup(props, { emit }) {
-    const selectedTheme = ($event: boolean) => {
-      emit('selectedTheme', $event)
-    }
-
-    return {
-      selectedTheme
+    },
+    onLang: {
+      type: Boolean
     }
   }
 }

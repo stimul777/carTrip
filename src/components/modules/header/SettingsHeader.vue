@@ -3,20 +3,20 @@
     <div class="header">
       <!-- Язык -->
       <UISwitch
+        :isSwitch="onLang"
+        :class="[colorSwitch ? 'onSwitch' : 'offSwitch']"
+        @selectedSwitch="selectedLang($event)"
         appendIcon="mdi-translate"
         prependIcon="mdi-translate-off"
-        :class="[colorSwitch ? 'onSwitch' : 'offSwitch']"
-        :style="{ color: colorSwitch }"
-        @selectedSwitch="$emit('selectedLocale', $event)"
       />
       <h1 class="header-h1">{{ t('header') }}</h1>
       <!-- Тема: день/ночь -->
       <UISwitch
+        :isSwitch="onTheme"
+        :class="[colorSwitch ? 'onSwitch' : 'offSwitch']"
+        @selectedSwitch="selectedTheme($event)"
         appendIcon="mdi-white-balance-sunny"
         prependIcon="mdi-weather-night"
-        :class="[colorSwitch ? 'onSwitch' : 'offSwitch']"
-        :isSwitch="onTheme"
-        @selectedSwitch="selectedTheme($event)"
       />
     </div>
   </div>
@@ -36,6 +36,9 @@ export default {
   props: {
     onTheme: {
       type: Boolean
+    },
+    onLang: {
+      type: Boolean
     }
   },
 
@@ -48,9 +51,14 @@ export default {
       emit('selectedTheme', $event)
     }
 
+    const selectedLang = ($event: boolean) => {
+      emit('selectedLang', $event)
+    }
+
     return {
       t,
       selectedTheme,
+      selectedLang,
       colorSwitch
     }
   }
