@@ -1,9 +1,9 @@
 <template>
-  <v-text-field class="input" v-model="model" :label="label" variant="outlined"></v-text-field>
+  <v-text-field loading v-model="model" :label="label" variant="outlined"></v-text-field>
 </template>
 
 <script lang="ts">
-import { computed, watch, ref, Ref } from 'vue'
+import { watch, ref, Ref } from 'vue'
 
 export default {
   name: 'UIAutocomplete',
@@ -18,10 +18,7 @@ export default {
       type: String,
       default: 'Значение'
     },
-    // hint: {
-    //   type: String,
-    //   default: 'Значение'
-    // },
+
     modelValue: {
       type: Number,
       default: 0
@@ -65,10 +62,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.input {
-  height: 20px;
-  width: 220px;
-  /* color: white; */
-}
-</style>
+<style scoped></style>

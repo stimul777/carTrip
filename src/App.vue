@@ -14,9 +14,9 @@
           <v-icon> mdi-vuetify</v-icon>
         </div>
       </section>
-      <v-card class="card" :title="routeTitle">
-        <v-container class="route-container">
-          <RouterView />
+      <v-card :class="['card']" :style="themeStyle" :title="routeTitle">
+        <v-container>
+          <RouterView :onTheme="onTheme" />
         </v-container>
       </v-card>
     </section>
@@ -54,6 +54,12 @@ export default {
 
     const onTheme = computed(() => theme.getTheme)
     const onLang = computed(() => lang.getLang)
+    const textColor = computed(() => (theme.isDayOrNight ? 'theme-day' : 'theme-night'))
+    const themeStyle = computed(() => {
+      return {
+        color: theme.isDayOrNight ? 'rgb(34, 34, 34)' : 'rgb(255, 255, 255)'
+      }
+    })
 
     return {
       routeTitle,
@@ -61,6 +67,8 @@ export default {
       onTheme,
       onLang,
       lang,
+      textColor,
+      themeStyle,
       t
     }
   }
@@ -68,6 +76,19 @@ export default {
 </script>
 
 <style scoped>
+.theme-day {
+  color: var(--cyanide-sea-wave);
+  /* z-index: 999; */
+}
+
+.theme-night {
+  color: var(--dark-blue);
+}
+
+.route-container {
+  /* z-index: 99999; */
+}
+
 .app-wrapper {
   /* max-width: 1280px;
   margin: 0 auto;
@@ -84,18 +105,11 @@ export default {
   overflow: none;
 }
 
-.route-container {
-  /* background-color: black; */
-}
 .card {
   background-color: rgba(0, 0, 0, 0);
-  border: 1px solid red;
-  /* z-index: -22; */
+  /* border: 1px solid red; */
+  /* z-index: -1; */
 }
-
-/* .v-card-title {
-  color: red !important;
-} */
 
 .content {
   display: flex;
@@ -137,56 +151,4 @@ header {
   display: block;
   margin: 0 auto 2rem;
 }
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-/* @media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-} */
 </style>

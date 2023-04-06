@@ -1,8 +1,12 @@
 <template>
   <div class="wrapper-nav">
     <nav class="nav">
-      <RouterLink class="nav-item" to="/">{{ t('distanceCalc') }}</RouterLink>
-      <RouterLink to="/expense">{{ t('ExpenseCalc') }}</RouterLink>
+      <RouterLink to="/" exact-active-class="active" active-class="active-class">{{
+        t('distanceCalc')
+      }}</RouterLink>
+      <RouterLink to="/expense" exact-active-class="active" active-class="active-class">{{
+        t('ExpenseCalc')
+      }}</RouterLink>
     </nav>
   </div>
 </template>
@@ -36,6 +40,14 @@ export default {
 </script>
 
 <style scoped>
+.active {
+  color: red;
+}
+
+.active-class {
+  color: black;
+}
+
 .onSwitch {
   color: var(--color-g-bg-fill-6);
 }
@@ -82,9 +94,9 @@ export default {
   border: 1px solid pink; */
 }
 
-.nav-item {
+/* .nav-item {
   color: red;
-}
+} */
 
 .content-wrapper {
   /* border: 1px solid red; */

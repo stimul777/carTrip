@@ -1,18 +1,11 @@
 <template>
   <section class="distance-calculator-container">
-    <!-- <div class="field-container"> -->
     <UIAutocomplete
       :items="cities"
       :label="t('calcDistance.from.value')"
       @search="onSearch($event)"
       @updateValue="setPoint($event, 'A')"
     />
-
-    <!-- <v-tooltip text="Tooltip">
-        <template v-slot:activator="{ props }"> <v-icon icon="mdi-help"></v-icon> </template>
-      </v-tooltip> -->
-    <!-- </div> -->
-
     <!-- Добавить + дополнительные точки -->
     <UIAutocomplete
       :items="cities"
@@ -21,22 +14,31 @@
       @updateValue="setPoint($event, 'B')"
     />
     <UIinput
+      class="input"
       :label="t('calcDistance.distance.value')"
       :modelValue="yampStore.distanceBetweenPoints"
       @update:modelValue="yampStore.distanceBetweenPoints = $event"
     />
     <UIinput
+      class="input"
       :label="t('calcDistance.fuelConsumption.value')"
       :value="calcsStore.gasolineConsumption"
       @update:modelValue="calcsStore.gasolineConsumption = $event"
     />
     <UIinput
+      class="input"
       :label="t('calcDistance.priceGasoline.value')"
       :value="calcsStore.pricePerLiter"
       @update:modelValue="calcsStore.pricePerLiter = $event"
     />
 
-    <Price icon="mdi-currency-rub" :text="t('calcDistance.priceOfTrip')" unit=" р" :value="price" />
+    <Price
+      icon="mdi-currency-rub"
+      :text="t('calcDistance.priceOfTrip')"
+      :color="textColor"
+      :value="price"
+      unit=" р"
+    />
   </section>
 </template>
 
@@ -44,12 +46,13 @@
 import { computed, ref, Ref } from 'vue'
 import useYampStore from '@/stores/yamp.store'
 import useCalculatorsStore from '@/stores/calculators.store'
+import useThemeStore from '@/stores/theme.store'
 import { useI18n } from 'vue-i18n'
 
 // components
 import UIAutocomplete from '@/components/kit/UIAutocomplete.vue'
 import UIinput from '@/components/kit/UIInput.vue'
-import Price from '@/components/Price.vue'
+import Price from '@/components/kit/UIPrice.vue'
 
 export default {
   name: 'DistanceCalculatorView',
@@ -65,11 +68,9 @@ export default {
     const { t } = useI18n()
     const yampStore = useYampStore()
     const calcsStore = useCalculatorsStore()
+    const theme = useThemeStore()
 
     const itemsSearch: Ref<[]> = ref([])
-
-    // const gasolineConsumptionСonsumption = ref(11)
-    // const pricePerLiter = ref(53)
 
     const onSearch = async (value: string) => {
       await yampStore.maps
@@ -104,12 +105,15 @@ export default {
       )
     })
 
+    const textColor = computed(() => (theme.isDayOrNight ? 'black' : 'white'))
+
     return {
       itemsSearch,
       cities,
       price,
       calcsStore,
       yampStore,
+      textColor,
       onSearch,
       setPoint,
       t
@@ -136,5 +140,10 @@ export default {
   /* border: 1px solid red; */
   width: 300px;
   height: 50px;
+}
+
+.input {
+  height: 20px;
+  width: 220px;
 }
 </style>

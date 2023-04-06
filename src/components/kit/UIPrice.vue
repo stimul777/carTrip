@@ -1,5 +1,5 @@
 <template>
-  <v-chip class="chip" label text-color="white">
+  <v-chip class="chip" label>
     <v-icon start :icon="icon"></v-icon>
     {{ text + value + unit }}
   </v-chip>
@@ -13,6 +13,7 @@ export default {
       type: String,
       default: () => ''
     },
+
     value: {
       type: Number,
       default: () => 0

@@ -1,9 +1,35 @@
 .night-theme {
-  /* border: 2px solid var(--vt-c-white); */
   background-color: var(--color-background);
-
 }
 
 .day-theme {
     background-color: var(--very-light-gray);
+}
+
+
+
+.night-theme a {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+ .night-theme a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+
+.day-theme a {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+}
+
+
+@media (hover: hover) {
+ .day-theme a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
 }

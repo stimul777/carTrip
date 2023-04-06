@@ -19,23 +19,10 @@ import useYampStore from '@/stores/yamp.store'
 
 export default defineComponent({
   name: 'YandexMap',
-  // props: {
-  //   pointA: {
-  //     type: String,
-  //     default: 'Владикавказ'
-  //   },
-  //   pointB: {
-  //     type: String,
-  //     default: 'Санкт-Петербург'
-  //   }
-  // },
 
   setup(props) {
     const isLoad: Ref<boolean> = ref(true)
     const store = useYampStore()
-
-    // const pointA = ref(store.pointA)
-    // const pointB = ref(store.pointB)
 
     let map = null as any
 
