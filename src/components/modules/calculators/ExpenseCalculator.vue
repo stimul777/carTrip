@@ -54,7 +54,7 @@ export default {
       calcsStore.gasolineConsumption = value
     })
 
-    const textColor = computed(() => (theme.isDayOrNight ? 'theme-day' : 'theme-night'))
+    const textColor = computed(() => (theme.isDayOrNight ? 'theme-night' : 'theme-day'))
 
     return { calcsStore, consumption, textColor, t }
   }

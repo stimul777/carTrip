@@ -1,12 +1,8 @@
 <template>
   <div class="wrapper-nav">
     <nav class="nav">
-      <RouterLink to="/" exact-active-class="active" active-class="active-class">{{
-        t('distanceCalc')
-      }}</RouterLink>
-      <RouterLink to="/expense" exact-active-class="active" active-class="active-class">{{
-        t('ExpenseCalc')
-      }}</RouterLink>
+      <RouterLink to="/">{{ t('distanceCalc') }}</RouterLink>
+      <RouterLink to="/expense">{{ t('ExpenseCalc') }}</RouterLink>
     </nav>
   </div>
 </template>
@@ -45,71 +41,7 @@ export default {
 }
 
 .active-class {
-  color: black;
-}
-
-.onSwitch {
-  color: var(--color-g-bg-fill-6);
-}
-
-.offSwitch {
-  color: white;
-}
-
-.control-settings {
-  display: flex;
-}
-.language {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* margin: 0 20px 0 0; */
-  /* border: 1px solid red; */
-}
-
-.switch {
-  /* border: 1px solid red; */
-  /* margin: 0;
-  padding: 0; */
-}
-
-.time-of-day {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* border: 1px solid red; */
-}
-
-.wrapper-nav {
-  /* display: flex;
-  align-items: center; */
-  /* width: 100%; */
-  /* border: 1px solid green; */
-}
-
-.nav {
-  /* display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid pink; */
-}
-
-/* .nav-item {
   color: red;
-} */
-
-.content-wrapper {
-  /* border: 1px solid red; */
-}
-
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
 }
 
 nav {
@@ -124,7 +56,9 @@ nav {
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  /* color: var(--green-moss); */
+  font-size: 17px;
+  font-weight: bold;
 }
 
 nav a.router-link-exact-active:hover {
@@ -140,26 +74,4 @@ nav a {
 nav a:first-of-type {
   border: 0;
 }
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* width: 100%; */
-  /* border: 1px solid red; */
-}
-
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  top: -10px;
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
-/* @media (min-width: 1024px) {
-
-} */
 </style>

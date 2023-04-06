@@ -41,7 +41,7 @@ export default {
   props: {},
 
   setup(props) {
-    const { t, locale } = useI18n()
+    const { t } = useI18n()
     const route = useRoute()
     const theme = useThemeStore()
     const lang = useLocalization()
