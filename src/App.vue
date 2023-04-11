@@ -2,7 +2,6 @@
   <section class="app-wrapper" :class="[onTheme ? 'day-theme' : 'night-theme']">
     <section class="content">
       <v-card class="card" :style="themeStyle">
-        <!-- <section class="content-wrapper-map"> -->
         <HeaderView
           :onTheme="onTheme"
           :onLang="onLang"
@@ -14,7 +13,6 @@
           <v-icon>mdi-vuejs</v-icon>
           <v-icon> mdi-vuetify</v-icon>
         </div>
-        <!-- </section> -->
       </v-card>
       <v-card class="card" :style="themeStyle" :title="routeTitle">
         <v-container>
@@ -68,7 +66,6 @@ export default {
       onTheme,
       onLang,
       lang,
-      // textColor,
       themeStyle,
       t
     }
@@ -77,54 +74,34 @@ export default {
 </script>
 
 <style scoped>
-/* .theme-day {
-  background-color: var(--cyanide-sea-wave);
-} 
-.theme-night {
-  color: var(--dark-blue);
-} */
-
-.route-container {
-  /* z-index: 99999; */
-}
-
 .app-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100vh;
-  /* font-weight: normal;
-  overflow: none; */
 }
 
 .card {
   background-color: rgba(0, 0, 0, 0);
-  /* border: 1px solid red; */
-  /* z-index: -1; */
 }
 
 .content {
   display: flex;
   justify-content: space-between;
   min-width: 980px;
-  /* max-height: 590px; */
-  /* border: 1px solid #2c2c2c2a; */
   border-radius: 10px;
   background-color: #e6e2e28a;
   padding: 10px;
-  /* padding: 2rem; */
 }
 
 .content-wrapper-map {
-  /* border: 1px solid rgba(0, 0, 0, 0.301); */
   border-radius: 6px;
 }
 
 .map-wrapper {
   width: 600px;
   height: 400px;
-  border: 1px solid red;
 }
 
 .footer-icons {

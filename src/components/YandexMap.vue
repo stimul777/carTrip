@@ -13,8 +13,6 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, Ref, watch } from 'vue'
-// import ymaps from 'ymaps'
-import UIButton from '@/components/kit/UIButton.vue'
 import useYampStore from '@/stores/yamp.store'
 
 export default defineComponent({
@@ -83,18 +81,10 @@ export default defineComponent({
 .yandex-map-wrapper {
   display: flex;
   justify-content: center;
-  /* margin: 0 auto; */
   align-items: center;
 }
 
 .progress-circular {
   color: hsla(160, 100%, 37%, 1);
 }
-/* @media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-} */
 </style>

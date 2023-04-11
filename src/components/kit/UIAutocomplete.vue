@@ -46,7 +46,6 @@ export default {
       emit('updateValue', search.value)
     })
 
-    //ленивую загрузку
     watch(search, () => {
       emit('search', search.value)
     })
