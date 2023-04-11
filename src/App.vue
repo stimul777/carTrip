@@ -1,7 +1,8 @@
 <template>
   <section class="app-wrapper" :class="[onTheme ? 'day-theme' : 'night-theme']">
     <section class="content">
-      <section class="content-wrapper">
+      <v-card class="card" :style="themeStyle">
+        <!-- <section class="content-wrapper-map"> -->
         <HeaderView
           :onTheme="onTheme"
           :onLang="onLang"
@@ -13,8 +14,9 @@
           <v-icon>mdi-vuejs</v-icon>
           <v-icon> mdi-vuetify</v-icon>
         </div>
-      </section>
-      <v-card :class="['card']" :style="themeStyle" :title="routeTitle">
+        <!-- </section> -->
+      </v-card>
+      <v-card class="card" :style="themeStyle" :title="routeTitle">
         <v-container>
           <RouterView :onTheme="onTheme" />
         </v-container>
@@ -54,7 +56,6 @@ export default {
 
     const onTheme = computed(() => theme.getTheme)
     const onLang = computed(() => lang.getLang)
-    const textColor = computed(() => (theme.isDayOrNight ? 'theme-day' : 'theme-night'))
     const themeStyle = computed(() => {
       return {
         color: theme.isDayOrNight ? 'rgb(34, 34, 34)' : 'rgb(255, 255, 255)'
@@ -67,7 +68,7 @@ export default {
       onTheme,
       onLang,
       lang,
-      textColor,
+      // textColor,
       themeStyle,
       t
     }
@@ -76,33 +77,25 @@ export default {
 </script>
 
 <style scoped>
-.theme-day {
-  color: var(--cyanide-sea-wave);
-  /* z-index: 999; */
-}
-
+/* .theme-day {
+  background-color: var(--cyanide-sea-wave);
+} 
 .theme-night {
   color: var(--dark-blue);
-}
+} */
 
 .route-container {
   /* z-index: 99999; */
 }
 
 .app-wrapper {
-  /* max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal; */
-  /* display: flex; */
   display: flex;
   align-items: center;
   justify-content: center;
-  /* border: 1px solid red; */
   width: 100%;
   height: 100vh;
-  font-weight: normal;
-  overflow: none;
+  /* font-weight: normal;
+  overflow: none; */
 }
 
 .card {
@@ -114,18 +107,17 @@ export default {
 .content {
   display: flex;
   justify-content: space-between;
-  /* margin: 0 auto; */
-  max-width: 70%;
-  max-height: 590px;
-  border: 1px solid #2c2c2c2a;
+  min-width: 980px;
+  /* max-height: 590px; */
+  /* border: 1px solid #2c2c2c2a; */
   border-radius: 10px;
   background-color: #e6e2e28a;
   padding: 10px;
   /* padding: 2rem; */
 }
 
-.content-wrapper {
-  border: 1px solid rgba(0, 0, 0, 0.301);
+.content-wrapper-map {
+  /* border: 1px solid rgba(0, 0, 0, 0.301); */
   border-radius: 6px;
 }
 

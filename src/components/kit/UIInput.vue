@@ -1,5 +1,5 @@
 <template>
-  <v-text-field loading v-model="model" :label="label" variant="outlined"></v-text-field>
+  <v-text-field v-model="model" :label="label" :rules="rules" variant="outlined"></v-text-field>
 </template>
 
 <script lang="ts">
@@ -26,22 +26,25 @@ export default {
   },
 
   setup(props, { emit }) {
-    const model: Ref<number> = ref(0)
+    const model: Ref<any> = ref(0)
 
-    const onValidation = (v) => {
-      // return [(v) => typeof v === Number || 'Field is required']
-      // return [() => '']
-      // return [
-      //   (v) => {
-      //     if (typeof v === String) {
-      //       console.log('!!', v)
-      //       model.value = ''
-      //       return 'Field is required'
-      //     }
-      //     // ||
-      //   }
-      // ]
-    }
+    const rules = [
+      (value: any) => {
+        if (!value) return
+
+        if (!/^[0-9.]*$/.test(value)) {
+          model.value = model.value.slice(0, model.value.length - 1)
+          return 'Only numbers and dots allowed'
+        }
+
+        if (value.length > 6) {
+          model.value = model.value.slice(0, model.value.length - 1)
+          return 'Maximum of 6 characters allowed'
+        }
+
+        return true
+      }
+    ]
 
     watch(
       () => props.modelValue,
@@ -57,7 +60,7 @@ export default {
         emit('update:modelValue', value)
       }
     )
-    return { model, onValidation }
+    return { model, rules }
   }
 }
 </script>

@@ -9,10 +9,9 @@ export const useYampStore = defineStore({
   id: 'yamp-store',
 
   state: () => ({
-    // yamps: null,
-    maps: null, //загружаемый класс карт
+    maps: null, //загружаемый инстанс карт
 
-    distanceBetweenPoints: 0, //расстояние между точками в км.
+    distanceBetweenPoints: 0, //растояние между точками в км.
     pointA: '',
     pointB: ''
   }),

@@ -1,37 +1,44 @@
 <template>
   <section class="distance-calculator-container">
+    <!-- Откуда -->
+
     <UIAutocomplete
       :items="cities"
       :label="t('calcDistance.from.value')"
-      @search="onSearch($event)"
+      :isLoading="isLoadingFrom"
+      @search="onSearch($event, 'A')"
       @updateValue="setPoint($event, 'A')"
     />
-    <!-- Добавить + дополнительные точки -->
+    <!-- Куда -->
     <UIAutocomplete
       :items="cities"
       :label="t('calcDistance.where.value')"
-      @search="onSearch($event)"
+      :isLoading="isLoadingWhere"
+      @search="onSearch($event, 'B')"
       @updateValue="setPoint($event, 'B')"
     />
+    <!-- Растояние -->
     <UIinput
       class="input"
       :label="t('calcDistance.distance.value')"
       :modelValue="yampStore.distanceBetweenPoints"
       @update:modelValue="yampStore.distanceBetweenPoints = $event"
     />
+    <!-- Расход -->
     <UIinput
       class="input"
       :label="t('calcDistance.fuelConsumption.value')"
       :value="calcsStore.gasolineConsumption"
       @update:modelValue="calcsStore.gasolineConsumption = $event"
     />
+    <!-- Цена -->
     <UIinput
       class="input"
       :label="t('calcDistance.priceGasoline.value')"
       :value="calcsStore.pricePerLiter"
       @update:modelValue="calcsStore.pricePerLiter = $event"
     />
-
+    <!-- Итого -->
     <Price
       icon="mdi-currency-rub"
       :text="t('calcDistance.priceOfTrip')"
@@ -48,7 +55,6 @@ import useYampStore from '@/stores/yamp.store'
 import useCalculatorsStore from '@/stores/calculators.store'
 import useThemeStore from '@/stores/theme.store'
 import { useI18n } from 'vue-i18n'
-
 // components
 import UIAutocomplete from '@/components/kit/UIAutocomplete.vue'
 import UIinput from '@/components/kit/UIInput.vue'
@@ -59,7 +65,6 @@ export default {
   components: {
     UIAutocomplete,
     UIinput,
-    // UIButton,
     Price
   },
   props: {},
@@ -71,14 +76,23 @@ export default {
     const theme = useThemeStore()
 
     const itemsSearch: Ref<[]> = ref([])
+    const isLoadingFrom = ref(false)
+    const isLoadingWhere = ref(false)
 
-    const onSearch = async (value: string) => {
+    const onSearch = async (value: string, pointName: 'A' | 'B') => {
+      pointName === 'A' ? (isLoadingFrom.value = true) : (isLoadingWhere.value = true)
       await yampStore.maps
         .suggest(value)
         .then(function (items) {
           itemsSearch.value = items
+          setTimeout(() => {
+            isLoadingFrom.value = isLoadingWhere.value = false
+          }, 500)
         })
-        .catch((error: any) => console.log('Failed to load Yandex Maps', error))
+        .catch((error: any) => {
+          isLoadingFrom.value = isLoadingWhere.value = false
+          console.log('Failed to load Yandex Maps', error)
+        })
     }
 
     const setPoint = (value: string, pointName: 'A' | 'B') => {
@@ -114,6 +128,8 @@ export default {
       calcsStore,
       yampStore,
       textColor,
+      isLoadingFrom,
+      isLoadingWhere,
       onSearch,
       setPoint,
       t

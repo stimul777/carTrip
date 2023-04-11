@@ -1,6 +1,6 @@
 <template>
   <v-autocomplete
-    v-model="value"
+    v-model.lazy="value"
     v-model:search="search"
     :label="label"
     :items="items"
@@ -8,7 +8,8 @@
     :disabled="isDisabled"
     density="comfortable"
     class="autocomplete"
-  />
+  >
+  </v-autocomplete>
 </template>
 
 <script lang="ts">
@@ -31,7 +32,7 @@ export default {
     },
     isLoading: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
 
@@ -46,7 +47,9 @@ export default {
     })
 
     //ленивую загрузку
-    watch(search, () => emit('search', search.value))
+    watch(search, () => {
+      emit('search', search.value)
+    })
     return { value, search }
   }
 }
@@ -56,6 +59,5 @@ export default {
 .autocomplete {
   height: 20px;
   width: 220px;
-  /* color: white; */
 }
 </style>
