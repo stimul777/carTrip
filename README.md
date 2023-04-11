@@ -23,3 +23,5 @@ vue-i18n
 npm i  
 npm run dev  - разработка  
 npm run build - собрать билд  
+
+![Screenshot_10](https://user-images.githubusercontent.com/47146778/231274456-80981a76-ac13-4c89-a544-21d93016bc49.png)
